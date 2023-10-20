@@ -6,7 +6,7 @@ class Node
     public:
      int data;
      Node *next;
-     Node(){}---------------------
+     Node(){}
      Node(int value)
       {
           data=value;
