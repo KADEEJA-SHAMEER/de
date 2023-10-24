@@ -71,7 +71,7 @@ void display()
         cout<<"\n enter the element you want to insert: ";
         cin>>a1;
         list1.create(a1);
-        cout<<"\n do you want to add one more element (enter 1 toi continue): ";
+        cout<<"\n do you want to add one more element (enter 1 to continue): ";
         cin>>y;
     }while(y==1);
     cout<<"\n creating list 2 ";
@@ -80,7 +80,7 @@ void display()
         cout<<"\n enter the element you want to insert: ";
         cin>>a2;
         list2.create(a2);
-        cout<<"\n do you want to add one more element (enter 1 toi continue): ";
+        cout<<"\n do you want to add one more element (enter 1 to continue): ";
         cin>>y;
     }while(y==1);
     cout<<"\n the linked list 1: ";
