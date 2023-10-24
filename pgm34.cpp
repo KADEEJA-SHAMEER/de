@@ -57,7 +57,6 @@ void countnodes()
 void interchange()
  {
     int n;
-    cout<<"\n count="<<count<<endl;
     top:cout<<"\n enter the position of the node : ";
      cin>>n;
      if(n<1||n>count)
@@ -72,7 +71,10 @@ void interchange()
       currn=currn->next;
     }
    if(currn->next==nullptr)
+   {
        cout<<"\n last node, interchanging is not possible";
+       exit(0);
+   }
    else
    {
    Node *currm=currn->next;
@@ -82,6 +84,8 @@ void interchange()
    prevn->next=currm;
    currn->next=currm->next;
    currm->next=currn;
+   cout<<"\n after interchanging the l8inked list is: ";
+   display();
   }
  }
 };
@@ -101,7 +105,6 @@ int main()
     list.display();
     list.countnodes();
     list.interchange();
-    cout<<"\n after interchanging the linked list is: ";
-    list.display();
-    return 0;
+   
+        return 0;
 }
