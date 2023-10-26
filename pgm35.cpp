@@ -42,13 +42,6 @@ class Circularlist
     }
 void display()
     {
-         if(head==nullptr)
-          {
-              cout<<"\n the list is empty";
-              return;
-          }
-         else
-         {cout<<"\n the circular linked list is: ";
       Node *current=head;
      do
         {
@@ -57,18 +50,6 @@ void display()
         } while(current!=head);
       cout<<"nullptr"<<endl;
     }
-}
-int countnodes()
-{
-     count=0;
-    Node *current=head;
-    while(current!=nullptr)
-      {
-        count++;
-        current=current->next;
-      }
-     return count;
-}
 void insertbeg(int value)
  {
      Node *newnode=new Node(value);
@@ -88,7 +69,6 @@ void insertbeg(int value)
          newnode->next=head;
          head=newnode;
      }
-     display();
      }
     void insertend(int value)
      {
@@ -108,7 +88,6 @@ void insertbeg(int value)
          temp->next=newnode;
          newnode->next=head;
      }
-    display();
  }
  void insertspecific(int n,int p )
   {   int ch;
@@ -119,14 +98,13 @@ void insertbeg(int value)
         {
             prev=loc;
             loc=loc->next;
-            if(loc==nullptr)
+            if(loc==head)
               {
                  if(k+1==temp)
                   {
                      ptr=new Node(n);
                      prev->next=ptr;
                      ptr->next=head;
-                     display();
                      return;
                   }
                else
@@ -147,14 +125,14 @@ void insertbeg(int value)
               temp=temp->next;
           }
          temp->next=ptr;
-          display();
+         return;
       }
     else 
     {
     ptr=new Node(n);
     ptr->next=loc;
     prev->next=ptr;
-    display();
+   return;
     }
   }
  };
@@ -170,8 +148,8 @@ void insertbeg(int value)
         cout<<"\n do you want to add one more element(enter 1 to continue): ";
         cin>>ch;
     }while(ch==1);
+    cout<<"\n the linked lisyt is: ";
     list.display();
-   int count =list.countnodes();
     do
     {
         cout<<"\n....menu..."<<endl
@@ -182,13 +160,17 @@ void insertbeg(int value)
             <<"enter your choice: ";
         cin>>ch;
         switch(ch)
-        {   case 1:cout<<"\n enter the element you want to insert         at beginning: ";
+        {   case 1:cout<<"\n enter the element you want to insert at beginning: ";
                    cin>>a;
                    list.insertbeg(a);
+                   cout<<"\n the linked list is: ";
+                   list.display();
                    break;
-             case 2:cout<<"\n enter the element you want to insert         at end: ";
+             case 2:cout<<"\n enter the element you want to insert  at end: ";
                    cin>>a;
                    list.insertend(a);
+                   cout<<"\n the linked list is :";
+                   list.display();
                    break;
             case 3:cout<<"\n enter the element to insert: ";
                    cin>>item;
@@ -200,6 +182,8 @@ void insertbeg(int value)
                           goto top;
                      }
                    list.insertspecific(item,p);
+                   cout<<"\n the linked list is: ";
+                   list.display();
                    break;
          case 0: cout<<"\n exiting...";
                  break;
