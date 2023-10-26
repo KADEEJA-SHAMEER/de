@@ -18,7 +18,6 @@ class Circularlist
 {
   public:
    Node *head;
-   int count;
   Circularlist()
    {
        head=nullptr;
@@ -29,7 +28,7 @@ class Circularlist
        if(head==nullptr)
         {
          head=newnode;
-         head->next=nullptr;
+         head->next=head;
         }
        else
         {
@@ -176,7 +175,7 @@ void insertbeg(int value)
                    cin>>item;
                    top:cout<<"\n the position you want to insert element: ";
                    cin>>p;
-                   if(p==0)
+                   if(p<=0)
                      {
                          cout<<"\n invalid position ";
                           goto top;
