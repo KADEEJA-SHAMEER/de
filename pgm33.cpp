@@ -1,4 +1,4 @@
-//33. Write a C++ program to interchange any two nodes in a list.
+//33.(not corrected) Write a C++ program to interchange any two nodes in a list.
 #include<iostream>
 using namespace std;
 class Node
