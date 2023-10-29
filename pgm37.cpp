@@ -86,7 +86,7 @@ void display()
                     }
                    else
                     prev->next=current->next;
-                  cout<<current->data<< "deleted"<<endl;
+                  cout<<current->data<< " deleted"<<endl;
                  delete current;
                  display();
                 }
