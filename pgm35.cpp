@@ -33,7 +33,7 @@ class Circularlist
        else
         {
             Node *current=head;
-            while(current->next!=nullptr)
+            while(current->next!=head)
               current=current->next;
             current->next=newnode;
             newnode->next=head;
@@ -117,13 +117,13 @@ void insertbeg(int value)
       {
           ptr=new Node(n);
           ptr->next=loc;
-          head=ptr;
            Node *temp=head;
          while(temp->next!=head)
           {
               temp=temp->next;
           }
          temp->next=ptr;
+         head=ptr;
          return;
       }
     else 

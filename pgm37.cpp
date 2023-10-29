@@ -141,7 +141,6 @@ void display()
           else
           {
           ptr=new Node(n);
-           head=ptr;
           ptr->next=loc;
            Node *temp=head;
          while(temp->next!=head)
@@ -149,6 +148,7 @@ void display()
               temp=temp->next;
           }
          temp->next=ptr;
+          head=ptr;
         cout<<"\n the linked list : ";
                     display();
                     return;
