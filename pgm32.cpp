@@ -1,4 +1,4 @@
-//32. Write a C++ program to concatenate two linked lists
+//(not corrected)32. Write a C++ program to concatenate two linked lists
 #include<iostream>
 using namespace std;
 class Node
