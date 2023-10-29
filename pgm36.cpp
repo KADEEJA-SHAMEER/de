@@ -127,7 +127,7 @@ void display()
                }
               if(currentposition==position)
                 {
-                  if(current->next==head)
+                  if(current==head)
                     {
                         head=nullptr;
                         delete current;
