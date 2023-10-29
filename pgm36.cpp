@@ -42,6 +42,7 @@ class Circularlist
     }
 void display()
     {
+      cout<<endl;
       Node *current=head;
      do
         {
@@ -66,7 +67,7 @@ void display()
                 lastnode=lastnode->next;
             }
          if(head==lastnode)
-           {
+           {      cout<<temp->data<<" deleted ";
                delete temp;
                head=nullptr;
                cout<<"\n list is empty";
@@ -74,6 +75,7 @@ void display()
            }
           head=head->next;
           lastnode->next=head;
+          cout<<temp->data<<" deleted ";
           delete temp;
           display();
       }
@@ -97,6 +99,7 @@ void display()
               if(prev==nullptr)
                 {
                     head=nullptr;
+                    cout<<current->data<<" deleted ";
                     delete current;
                     cout<<"\n list is empty";
                     return;
@@ -104,6 +107,7 @@ void display()
               else
                {
                    prev->next=head;
+                   cout<<current->data<<" deleted ";
                    delete current;
                    display();
                }
@@ -130,6 +134,7 @@ void display()
                   if(current==head)
                     {
                         head=nullptr;
+                        cout<<current->data<<" deleted ";
                         delete current;
                         cout<<"\n list is empty"<<endl;
                         return;
@@ -144,6 +149,7 @@ void display()
                     }
                    else
                     prev->next=current->next;
+                  cout<<current->data<<" deleted";
                  delete current;
                  display();
                 }
