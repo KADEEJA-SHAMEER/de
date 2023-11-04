@@ -131,7 +131,7 @@ void display()
                }
               if(currentposition==position)
                 {
-                  if(current==head)
+                  if(current->next==head && prev==nullptr)
                     {
                         head=nullptr;
                         cout<<current->data<<" deleted ";
@@ -189,9 +189,16 @@ int main()
                  break;
           case 2:list.deleteEnd();
                  break;
-          case 3:cout<<"\n enter the position you want to delete: "    ;
+          case 3:if(list.head==nullptr)
+                    {
+                      cout<<"\n list is empty .deletion is not possible";
+                    }
+                else
+                {
+                 cout<<"\n enter the position you want to delete: "    ;
                  cin>>p;
                  list.deleteAtSpecific(p);
+                }
                  break;
          case 0 :cout<<"\n exiting....";
                  break;
