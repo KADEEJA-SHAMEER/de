@@ -151,13 +151,13 @@ public:
                      j++;
                  }
                if((isalnum(infix[i]))&&(isalnum(infix[j])))
-                 {  cout<<"infix i="<<infix[i]<<" infix j="<<infix[j]<<endl;
+                 {  
                     cout<<"\n invalid expression ";
                     exit(0);
                  }
                 else if((isOperator(infix[i]))&&(isOperator(infix[j])))
                  { 
-                     cout<<"infix i="<<infix[i]<<" infix j="<<infix[j]<<endl;
+                     
                    cout<<"\n invalid expresiion ";
                    exit(0);
                  }
