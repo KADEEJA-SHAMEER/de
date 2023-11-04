@@ -1,4 +1,4 @@
-// (not corrected)write a program to convert infix expression to postfix
+// (corrected)write a program to convert infix expression to postfix
 #include <iostream>
 #include <string>
 using namespace std;
@@ -136,64 +136,45 @@ public:
 
     void check()
     {
-        char ch;
-       /* int operand = 0, operatorr = 0;
-         char ch;
-        for (int i=0;i<infix.length();i++)
-        {
-            char c=infix[i];
-            if (isalnum(c))
-            { 
-                operand++;
-            }
-            else if (isOperator(c))
-            {
-                operatorr++;
-            }
-        }*/
-       
+        char ch;    
          for(int i=0;i<infix.length()-1;)
-       {
-         for(int j=i+1;j<infix.length();j++)
-           {   
+           {
+             for(int j=i+1;j<infix.length();j++)
+              { 
+                if((isdigit(infix[i]))&&(isdigit(infix[j])))
+                  {    
+                      i++;
+                      j++;
+                  }
                while(infix[j]==' ')
                  {
-                     ++j;
+                     j++;
                  }
                if((isalnum(infix[i]))&&(isalnum(infix[j])))
-                 {
-                    cout<<"\n invalid expression re enter"<<endl;
-                   
-                    readInfix();
+                 {  cout<<"infix i="<<infix[i]<<" infix j="<<infix[j]<<endl;
+                    cout<<"\n invalid expression ";
+                    exit(0);
                  }
                 else if((isOperator(infix[i]))&&(isOperator(infix[j])))
-                 {
-                    cout<<"\n invalid expresiion re enter"<<endl;
-                    
-                  readInfix();
-                 
+                 { 
+                     cout<<"infix i="<<infix[i]<<" infix j="<<infix[j]<<endl;
+                   cout<<"\n invalid expresiion ";
+                   exit(0);
                  }
                  i++;
-                 while(infix[i]==' ')
+                 
+                 while((infix[i]==' ')&&(i<infix.length()-1))
                  {
                      i++;
-                     j++;
                  }
            }
        }
-       
-      if(infix[0]=='(')
-           ch=infix[1];
-        else
-         ch=infix[0];
-        if (/*operatorr != operand - 1 || */isOperator(infix[infix.length() - 1])|| isOperator(ch) )
+        if (isOperator(infix[infix.length() - 1])|| isOperator(infix[0]) )
         {
            
             cout << endl
-                 << endl
-                 << "Invalid expression!..Re-Enter..!" << endl
-                 << endl;
-            readInfix();
+                 << "Invalid expression!.";
+                 exit(0);
         }
     }
 };
