@@ -124,12 +124,18 @@ Node *search(int x)
             currm->next=currn->next;
             currn->next=temp;
            }
-        else if(currn->next==currm || currm->next == currn)
+        else if(currn->next==currm )
                {
                 prevn->next=currm;
                 currn->next=currm->next;
                 currm->next=currn;
                }
+            else if(currm->next==currn)
+                    {
+                      prevm->next=currn;
+                      currm->next=currn->next;
+                      currn->next=currm;
+                    }
          else
           {   Node *temp;
               prevn->next=currm;
@@ -159,4 +165,4 @@ int main()
     list.countnodes();
     list.interchange();
      return 0;
-}
+}                                                   
