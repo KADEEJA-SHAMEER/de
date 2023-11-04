@@ -68,7 +68,7 @@ void display()
                }
               if(currentposition==position)
                 {
-                  if(current==head&&current->next==head)
+                  if(current==head&&prev==nullptr)
                     {
                         head=nullptr;
                         cout<<current->data<< " deleted"<<endl;
