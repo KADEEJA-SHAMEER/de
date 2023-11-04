@@ -60,7 +60,7 @@ void display()
       if(ptr==nullptr)
         {
           cout<<"\n list is empty"<<endl;
-          exit(0);
+         return;
         }
      else
       {
@@ -107,6 +107,11 @@ void display()
       Node *ptr,*loc=head;
       int temp=p-1,k;
       Node *prev=head;
+      if((head==nullptr)&&(p>1))
+        {
+             cout<<"\n invalid position .insertion is not possible";
+             return;
+        }
       for(k=0;k<temp;k++)
         {
             prev=loc;
@@ -177,9 +182,16 @@ int main()
                      }
                    list.insertspecific(item,p);
                    break;
-           case 2:cout<<"\n enter the element you want to delete: "    ;
+           case 2:if(list.head==nullptr)
+                     {
+                      cout<<"\n list is empty.deletion is not poosible"<<endl;
+                     }
+                  else
+                  {
+                  cout<<"\n enter the element you want to delete: "    ;
                   cin>>item;
                   list.Delete(item);
+                  }
                   break;
          case 0: cout<<"\n exiting...";
                  break;
