@@ -141,7 +141,7 @@ public:
            {
              for(int j=i+1;j<infix.length();j++)
               { 
-                if((isdigit(infix[i]))&&(isdigit(infix[j])))
+                while((isdigit(infix[i]))&&(isdigit(infix[j])))
                   {    
                       i++;
                       j++;
@@ -169,7 +169,13 @@ public:
                  }
            }
        }
-        if (isOperator(infix[infix.length() - 1])|| isOperator(infix[0]) )
+       int k=0;
+       while((infix[k]==' ')||(infix[k]=='('))
+          {
+            k++;
+          }
+        ch=k;
+        if (isOperator(infix[infix.length() - 1])|| isOperator(ch) )
         {
            
             cout << endl
