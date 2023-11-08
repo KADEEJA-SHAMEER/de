@@ -175,12 +175,12 @@ public:
             k++;
           }
         ch=k;
-        if (isOperator(infix[infix.length() - 1])|| isOperator(ch) )
+        if (isOperator(infix[infix.length() - 1])|| (isOperator(infix[ch]) ))
         {
            
             cout << endl
                  << "Invalid expression!.";
-                 exit(0);
+            exit(0);
         }
     }
 };
