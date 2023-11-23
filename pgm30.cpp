@@ -101,57 +101,70 @@ void display()
           }
       }
   }
+ int countNode()
+  {
+     int countN=1;
+     Node*temp=head;
+     if(head==nullptr)
+       {
+        return 0;
+       }
+     while(temp->next!=nullptr)
+      {
+        countN++;
+        temp=temp->next;
+      }
+    return countN;
+  }
        
-  void insertspecific(int n,int p )
-  {   int ch;
-      Node *ptr,*loc=head;
-      int temp=p-1,k;
-      Node *prev=head;
-      if((head==nullptr)&&(p>1))
-        {
-             cout<<"\n invalid position .insertion is not possible";
-             return;
-        }
-      for(k=0;k<temp;k++)
-        {
-            prev=loc;
-            loc=loc->next;
-            if(loc==nullptr)
-              {
-                 if(k+1==temp)
-                  {
-                     ptr=new Node(n);
-                     prev->next=ptr;
-                     display();
-                     return;
-                  }
+  void insertspecific(int n,int p,int countN)
+  {   
+    Node *ptr,*temp;
+     if(((p!=countN)&&(p>countN+1))||(p<=0))
+       {
+        cout<<"\n invalid position";
+        return;
+       }
+    if(p==1)
+     {
+       ptr=new Node(n);
+       ptr->next=head;
+       head=ptr;
+     }
+    else if(p==countN+1)
+            {
+              ptr=new Node(n);
+              if(head==nullptr)
+                  head=ptr;
                else
                  {
-                  cout<<"\n insertion is not possible at the specified position";
-                  return;
+                  temp=head;
+                  while(temp->next!=nullptr)
+                    temp=temp->next;
+                  temp->next=ptr;
                  }
-              }
-        }
-    if(loc==head)
-      {
-          ptr=new Node(n);
-          ptr->next=loc;
-          head=ptr;
-          display();
-      }
-    else 
-    {
-    ptr=new Node(n);
-    ptr->next=loc;
-    prev->next=ptr;
-    display();
-    }
+            }
+          else
+            {
+              temp=head;
+              int currp=1;
+              while((currp< p-1)&&(temp->next!=nullptr))
+                {
+                    currp++;
+                    temp=temp->next;
+                }
+              ptr=new Node(n);
+              ptr->next=temp->next;
+              temp->next=ptr;
+            }
+        cout<<"\n the linked list is: ";
+        display();
   }
 };
 int main()
 {
     Linkedlist list;
-    int ch,a,item,p;
+    int ch,a,item,p,c;
     do
     {
         cout<<"\n enter the element you want to insert: ";
@@ -173,14 +186,10 @@ int main()
         {
             case 1:cout<<"\n enter the element to insert: ";
                    cin>>item;
-                   top:cout<<"\n the position you want to insert element: ";
+                   cout<<"\n the position you want to insert element: ";
                    cin>>p;
-                   if(p==0)
-                     {
-                         cout<<"\n invalid entry position should be greater than 0";
-                          goto top;
-                     }
-                   list.insertspecific(item,p);
+                   c=list.countNode();
+                   list.insertspecific(item,p,c);
                    break;
            case 2:if(list.head==nullptr)
                      {
