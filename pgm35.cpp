@@ -16,6 +16,7 @@ class Node
 };
 class Circularlist
 {
+  
   public:
    Node *head;
   Circularlist()
@@ -49,6 +50,25 @@ void display()
         } while(current!=head);
       cout<<"nullptr"<<endl;
     }
+int countNodes()
+ {
+     int countnode=1;
+     if(head==nullptr)
+       {
+           cout<<"\n list is empty";
+           return 0;
+       }
+      else
+      {
+          Node * current=head;
+          while(current->next!=head)
+            {
+                countnode+=1;
+                  current=current->next;
+            }
+      }
+     return countnode;
+ }
 void insertbeg(int value)
  {
      Node *newnode=new Node(value);
@@ -88,57 +108,60 @@ void insertbeg(int value)
          newnode->next=head;
      }
  }
- void insertspecific(int n,int p )
-  {   int ch;
-      Node *ptr,*loc=head;
-      int temp=p-1,k;
-      Node *prev=nullptr;
-      for(k=0;k<temp;k++)
+ void insertspecific(int n,int p,int countnode )
+  {  
+      Node *ptr;
+      if(((p!=countnode)&&(p>countnode+1)) ||( p<=0)) 
         {
-            prev=loc;
-            loc=loc->next;
-            if(loc==head)
-              {
-                 if(k+1==temp)
-                  {
-                     ptr=new Node(n);
-                     prev->next=ptr;
-                     ptr->next=head;
-                     return;
-                  }
-               else
-                 {
-                  cout<<"\n insertion is not possible at the specified position";
-                  return;
-                 }
-              }
+            cout<<"\n invalid position";
+            return;
         }
-    if(loc==head)
+      else
       {
-          ptr=new Node(n);
-          ptr->next=loc;
-           Node *temp=head;
-         while(temp->next!=head)
-          {
+        if(p==1)
+         {
+            ptr=new Node(n);
+            ptr->next=head;
+            Node *temp=head;
+            while(temp->next!=head)
+           {
               temp=temp->next;
-          }
-         temp->next=ptr;
-         head=ptr;
-         return;
+           }
+          temp->next=ptr;
+           head=ptr;
+        }
+       else if(p==countnode+1)
+           {
+               ptr=new Node(n);
+               Node *temp=head;
+               while(temp->next!=head)
+                 temp=temp->next;
+               ptr->next=head;
+               temp->next=ptr;
+           }
+          else 
+            {
+             
+              Node *temp=head;
+              int currp=1;
+              while((currp< p-1)&&(temp->next!=head))
+                {
+                    currp++;
+                    temp=temp->next;
+                }
+              ptr=new Node(n);
+              ptr->next=temp->next;
+              temp->next=ptr;
+            }
+          cout<<"\n the linked list is: ";
+          display();
       }
-    else 
-    {
-    ptr=new Node(n);
-    ptr->next=loc;
-    prev->next=ptr;
-   return;
-    }
   }
  };
  int main()
  {
   Circularlist list;
-    int ch,a,item,p;
+    int ch,a,item,p,c;
     do
     {
         cout<<"\n enter the element you want to insert: ";
@@ -171,18 +194,13 @@ void insertbeg(int value)
                    cout<<"\n the linked list is :";
                    list.display();
                    break;
-            case 3:cout<<"\n enter the element to insert: ";
+            case 3: c=list.countNodes();
+                   cout<<"\n enter the element to insert: ";
                    cin>>item;
-                   top:cout<<"\n the position you want to insert element: ";
+                   cout<<"\n the position you want to insert element: ";
                    cin>>p;
-                   if(p<=0)
-                     {
-                         cout<<"\n invalid position ";
-                          goto top;
-                     }
-                   list.insertspecific(item,p);
-                   cout<<"\n the linked list is: ";
-                   list.display();
+                   list.insertspecific(item,p,c);
+                  
                    break;
          case 0: cout<<"\n exiting...";
                  break;
