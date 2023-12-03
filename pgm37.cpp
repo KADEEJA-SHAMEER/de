@@ -42,6 +42,13 @@ class Circularlist
     }
 void display()
     {
+     if(head==nullptr)
+        {
+            cout<<"\n list is empty";
+            return;
+        }
+     else
+     {
       Node *current=head;
      do
         {
@@ -50,6 +57,7 @@ void display()
         } while(current!=head);
       cout<<"nullptr"<<endl;
     }
+ }
   void deleteAtSpecific(int position)
       {
           if(head==nullptr)
@@ -68,21 +76,19 @@ void display()
                }
               if(currentposition==position)
                 {
-                  if(current==head&&prev==nullptr)
-                    {
-                        head=nullptr;
-                        cout<<current->data<< " deleted"<<endl;
-                        delete current;
-                        cout<<" list is empty"<<endl;
-                        return;
-                    }
-                  else if(prev==nullptr)
+                  
+                   if(prev==nullptr)
                     {
                       Node *lastnode=head;
                       while(lastnode->next!=head)
                         lastnode=lastnode->next;
+                     if(current->next!=head)
+                     {
                       head=current->next;
                       lastnode->next=head;
+                     }
+                    else
+                      head=nullptr;
                     }
                    else
                     prev->next=current->next;
@@ -96,73 +102,80 @@ void display()
                   return;
               }
         }  
-    void insertspecific(int n,int p )
-  { 
-      int ch;
-       Node *ptr,*loc=head;
-      int temp=p-1,k;
-      Node *prev=nullptr;
-      if(head==nullptr && p>1)
-                {
-                    cout<<"\n invalid position";
-                    return;
-                }
-      for(k=0;k<temp;k++)
-        {   
-            prev=loc;
-            loc=loc->next;
-            if(loc==head)
-              {
-                 if(k+1==temp)
-                  {
-                     ptr=new Node(n);
-                     prev->next=ptr;
-                     ptr->next=head;
-                    cout<<"\n the linked list : ";
-                    display();
-                    return;
-                  }
-               else
-                 {
-                  cout<<"\n insertion is not possible at the specified position";
-                  return;
-                 }
-              }
-        }
-    if(loc==head)
+    int countNodes()
+ {
+     int countnode=1;
+     if(head==nullptr)
+       {
+           return 0;
+       }
+      else
       {
-          if(head==nullptr)
+          Node * current=head;
+          while(current->next!=head)
             {
-                create(n);
-                cout<<"\n the linked list is: ";
-                display();
-                return;
+                countnode+=1;
+                  current=current->next;
             }
-          else
-          {
-          ptr=new Node(n);
-          ptr->next=loc;
-           Node *temp=head;
-         while(temp->next!=head)
-          {
-              temp=temp->next;
-          }
-         temp->next=ptr;
-          head=ptr;
-        cout<<"\n the linked list : ";
-                    display();
-                    return;
-          }
       }
-    else 
-    {
-    ptr=new Node(n);
-    ptr->next=loc;
-    prev->next=ptr;
-    cout<<"\n the linked list : ";
-     display();
-    return;
-    }
+     return countnode;
+ }
+   void insertspecific(int n,int p,int countnode )
+  {  
+      Node *ptr;
+      if(((p!=countnode)&&(p>countnode+1)) ||( p<=0)) 
+        {
+            cout<<"\n invalid position";
+            return;
+        }
+      else
+      {
+        if(p==1)
+         {
+            ptr=new Node(n);
+            if(head==nullptr)
+             {
+                head=ptr;
+                head->next=head; 
+             }
+            else
+            {
+            ptr->next=head;
+            Node *temp=head;
+            while(temp->next!=head)
+           {
+              temp=temp->next;
+           }
+          temp->next=ptr;
+           head=ptr;
+         }
+        }
+       else if(p==countnode+1)
+           {
+               ptr=new Node(n);
+               Node *temp=head;
+               while(temp->next!=head)
+                 temp=temp->next;
+               ptr->next=head;
+               temp->next=ptr;
+           }
+          else 
+            {
+             
+              Node *temp=head;
+              int currp=1;
+              while((currp< p-1)&&(temp->next!=head))
+                {
+                    currp++;
+                    temp=temp->next;
+                }
+              ptr=new Node(n);
+              ptr->next=temp->next;
+              temp->next=ptr;
+            }
+          cout<<"\n the linked list is: ";
+          display();
+      }
   }
 };
 int main()
@@ -179,6 +192,7 @@ int main()
     }while(ch==1);
     cout<<"\n the linked lisyt is: ";
     list.display();
+    int countN;
     do
     {
         cout<<"\n...menu..."<<endl
@@ -189,15 +203,22 @@ int main()
         cin>>ch;
         switch(ch)
         {
-            case 1:cout<<"\n enter the element you want to insert:   ";
+            case 1:countN=list.countNodes();
+                   cout<<"\n enter the element you want to insert:   ";
                   cin>>item;
                   cout<<"\n enter the position you want to insert: ";
                   cin>>p;
-                  list.insertspecific(item,p);
+                  list.insertspecific(item,p,countN);
                   break;
-            case 2:cout<<"\n enter the position you want to delete:    ";
-                  cin>>p;
-                  list.deleteAtSpecific(p);
+            case 2:countN=list.countNodes();
+                   if(countN==0)
+                     cout<<"\n nothing to delete.list is empty";
+                   else
+                   {
+                   cout<<"\n enter the position you want to delete:    ";
+                   cin>>p;
+                   list.deleteAtSpecific(p);
+                   }
                   break;
             case 0:cout<<"\n exiting...";
                    break;
