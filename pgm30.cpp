@@ -157,7 +157,6 @@ void display()
               ptr->next=temp->next;
               temp->next=ptr;
             }
-        cout<<"\n the linked list is: ";
         display();
   }
 };
