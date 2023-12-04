@@ -1,4 +1,5 @@
-//39. Write a C++ program to insert an element in the Doubly linked list. Menu driven program. (at beginning, end, anywhere).
+//39. Write a C++ program to insert an element in the Doubly linked list.
+// Menu driven program. (at beginning, end, anywhere).
 #include<iostream>
 using namespace std;
 class Node
@@ -121,7 +122,7 @@ int main()
       cout<<"\n enter the element you want to insert: ";
       cin>>n;
       list.insertelement(n);
-      cout<<"\n do you want ton add one more element(enter 1 to continue): ";
+      cout<<"\n do you want to add one more element(enter 1 to continue): ";
       cin>>y;
   }while(y==1);
   cout<<"\n the doubly linked list is: ";

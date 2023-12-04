@@ -85,7 +85,7 @@ void interchange()
    prevn->next=currm;
    currn->next=currm->next;
    currm->next=currn;
-   cout<<"\n after interchanging the l8inked list is: ";
+   cout<<"\n after interchanging the linked list is: ";
    display();
   }
  }
