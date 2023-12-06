@@ -1,4 +1,4 @@
-//43. Write a C++ program to Creation of binary search trees. Tree traversals. Recursive function
+//43.(not completed) Write a C++ program to Creation of binary search trees. Tree traversals. Recursive function
 //for traversals.
 #include<iostream>
 using namespace std;
@@ -58,5 +58,30 @@ class BST
                   ptr1->lchild=newnode;
              }
         }
-      
-};
+   void display()
+    {
+      cout<<"\n InOrder traversal: ";
+      Inorder(root);
+      cout<<"\n PreOrder traversal: ";
+      Preorder(root);
+      cout<<"\n PostOrder traversal: ";
+      Postorder(root);
+    } 
+   void Inorder(Node *node)
+          {
+            if(node!=nullptr)
+              {
+                Inorder(node->lchild);
+                cout<<node->data<<" ";
+                Inorder(node->rchild);
+              }
+          }
+    void Preorder(Node *node)
+      {
+        if(node!=nullptr)
+          {
+            cout<<node->data<<" ";
+            Preorder(node->lchild);
+            Preorder(node->rchild);
+          }
+      }
