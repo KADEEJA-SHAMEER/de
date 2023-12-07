@@ -31,6 +31,8 @@ class BST
               {
                 root=newnode;
               }
+            else
+            {
             Node *ptr=root,*ptr1;
             while(ptr!=nullptr)
             {
@@ -57,7 +59,8 @@ class BST
                 else
                   ptr1->lchild=newnode;
              }
-        }
+          }
+      }
    void display()
     {
       cout<<"\n InOrder traversal: ";
@@ -85,3 +88,29 @@ class BST
             Preorder(node->rchild);
           }
       }
+    void Postorder(Node *node)
+      {
+        if(node!=nullptr)
+          {
+            Postorder(node->lchild);
+            Postorder(node->rchild);
+            cout<<node->data<<" ";
+          }
+      }
+};
+int main()
+{
+  int n,y;
+  BST bst;
+  do
+  {
+    cout<<"\n enter the element you want to insert: ";
+    cin>>n;
+    bst.create(n);
+    cout<<"\n do you want to add another element(enter 1 to continue): ";
+    cin>>y;
+  }while(y==1);
+  cout<<"\n The binary search tree : ";
+  bst.display();
+  return 0;
+}
