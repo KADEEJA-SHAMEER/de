@@ -1,4 +1,4 @@
-//43.(not completed) Write a C++ program to Creation of binary search trees. Tree traversals. Recursive function
+//43. Write a C++ program to Creation of binary search trees. Tree traversals. Recursive function
 //for traversals.
 #include<iostream>
 using namespace std;
