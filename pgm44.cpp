@@ -70,6 +70,7 @@ class BST
           }
         else
           {
+            cout<<"\n the inorder traversal of the binary search tree is: ";
             Inorder(root);
           }
      
@@ -83,10 +84,22 @@ class BST
                 Inorder(node->rchild);
               }
           }
+    Node *successor(Node *ptr)
+      {
+         Node *ptr1=ptr->rchild;
+         if(ptr1!=nullptr)
+            {
+              while(ptr1->lchild!=nullptr)
+                 {
+                  ptr1=ptr1->lchild;
+                 }
+            }
+          return ptr1;
+      }
     void deleteN(int item)
          {
            Node *ptr=root,*ptr1;
-           int f=0,ch;
+           int f=0,ch,item1;
            if(root==nullptr)
              {
                  cout<<"\n binary search tree is empty.deletion is not possible";
@@ -120,18 +133,116 @@ class BST
                  ch=2;
               else 
                  ch=3;
-         switch(ch)
+        /* switch(ch)
           {
             case 1: if(ptr1->lchild==ptr)
                        ptr1->lchild=nullptr;
                     else
                        ptr1->rchild=nullptr;
-                    cout<<"\n node with element "<<item<<" deleted";
                     delete ptr;
+                    display();
                     break;
-            case 2: 
-                      
-          }
-           
-         }
+            case 2: Node *succ;
+                    succ=successor(ptr);
+                    item1=succ->data;
+                    deleteN(item1);
+                    ptr->data=item;
+                    display();
+                    break;
+            case 3: if(ptr1->rchild==ptr)
+                       {
+                        if(ptr->lchild==nullptr)
+                           ptr1->rchild=ptr->rchild;
+                        else
+                           ptr1->rchild=ptr->lchild;
+                       }
+                    else
+                      {
+                        if(ptr1->lchild==ptr)
+                          {
+                             if(ptr->lchild==nullptr)
+                                ptr1->lchild=ptr->rchild;
+                             else
+                                ptr1->lchild=ptr->lchild;
+                          }
+                      }
+                    delete ptr;
+                    display();
+                    break;  
+           default:cout<<"\n invalid choice";       
+          }*/
+          switch (ch)
+    {
+    case 1:
+        if (ptr1->lchild == ptr)
+            ptr1->lchild = nullptr;
+        else
+            ptr1->rchild = nullptr;
+        delete ptr;
+        display();
+        break;
+    case 2:
+        Node *succ;
+        succ = successor(ptr);
+        if (succ != nullptr)
+        {
+            item1 = succ->data;
+            deleteN(item1);
+            ptr->data = item;
+            display();
+        }
+        else
+        {
+            cout << "\n Error finding successor. Deletion failed.";
+        }
+        break;
+    case 3:
+        // ... (existing code)
+        delete ptr;
+        display();
+        break;
+    default:
+        cout << "\n invalid choice";
+    }
+   }  
+         
 };
+int main()
+{
+  int n,y,ch;
+  BST bst;
+  do
+  {
+    cout<<"\n enter the element you want to insert: ";
+    cin>>n;
+    bst.create(n);
+    cout<<"\n do you want to add another element(enter 1 to continue): ";
+    cin>>y;
+  }while(y==1);
+  bst.display();
+  do
+  {
+    cout<<"\n ...menu..."<<endl
+        <<"1.insert int BST"<<endl
+        <<"2.delete fron BST"<<endl
+        <<"0.exit"<<endl
+        <<"enter your choice: ";
+    cin>>ch;
+    switch(ch)
+      {
+        case 1: cout<<"\n enter the element you want to insert: ";
+                cin>>n;
+                bst.create(n);
+                bst.display();
+                break;
+        case 2: cout<<"\n enter thr element you want to delete: ";
+                cin>>n;
+                bst.deleteN(n);
+                break;
+        case 0: cout<<"\n exiting...";
+                break;
+       default: cout<<"\n invalid choice";
+      }
+  }while(ch!=0);
+  return 0;
+}
