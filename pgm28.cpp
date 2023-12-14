@@ -1,3 +1,4 @@
+//write c++ program to delete an element after a node in linear linked list.(hint not an element)
 #include<iostream>
 using namespace std;
 class Node
