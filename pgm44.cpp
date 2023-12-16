@@ -86,18 +86,21 @@ class BST
           }
     Node *successor(Node *ptr)
       {
-         Node *ptr1=ptr->rchild;
+         Node *ptr2=ptr,*ptr1=ptr->rchild;
          if(ptr1!=nullptr)
             {
               while(ptr1->lchild!=nullptr)
                  {
+                  ptr2=ptr1;
                   ptr1=ptr1->lchild;
                  }
+              ptr2->rchild=nullptr;
             }
           return ptr1;
       }
     void deleteN(int item)
          {
+           
            Node *ptr=root,*ptr1;
            int f=0,ch,item1;
            if(root==nullptr)
@@ -120,6 +123,7 @@ class BST
                  else if(item==ptr->data)
                          {
                            f=1;
+                           break;
                          }
             }
          if(f==0)
@@ -133,7 +137,7 @@ class BST
                  ch=2;
               else 
                  ch=3;
-        /* switch(ch)
+         switch(ch)
           {
             case 1: if(ptr1->lchild==ptr)
                        ptr1->lchild=nullptr;
@@ -145,8 +149,8 @@ class BST
             case 2: Node *succ;
                     succ=successor(ptr);
                     item1=succ->data;
-                    deleteN(item1);
-                    ptr->data=item;
+                    ptr->data=item1;
+                    delete succ;
                     display();
                     break;
             case 3: if(ptr1->rchild==ptr)
@@ -169,41 +173,7 @@ class BST
                     delete ptr;
                     display();
                     break;  
-           default:cout<<"\n invalid choice";       
-          }*/
-          switch (ch)
-    {
-    case 1:
-        if (ptr1->lchild == ptr)
-            ptr1->lchild = nullptr;
-        else
-            ptr1->rchild = nullptr;
-        delete ptr;
-        display();
-        break;
-    case 2:
-        Node *succ;
-        succ = successor(ptr);
-        if (succ != nullptr)
-        {
-            item1 = succ->data;
-            deleteN(item1);
-            ptr->data = item;
-            display();
-        }
-        else
-        {
-            cout << "\n Error finding successor. Deletion failed.";
-        }
-        break;
-    case 3:
-        // ... (existing code)
-        delete ptr;
-        display();
-        break;
-    default:
-        cout << "\n invalid choice";
-    }
+          }
    }  
          
 };
