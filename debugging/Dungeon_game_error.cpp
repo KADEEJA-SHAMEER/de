@@ -11,7 +11,7 @@ void displayMap(char dungeon[5][5], int playerX, int playerY) {
         cout << "  |";
         for (int j = 0; j < 5; j++) {
             if (i == playerX && j == playerY) {
-                cout << " P |"; // Player's position
+                cout << " P |";
             } else {
                 cout << " " << dungeon[i][j] << " |";
             }
@@ -21,28 +21,26 @@ void displayMap(char dungeon[5][5], int playerX, int playerY) {
 }
 
 void generateWalls(char dungeon[5][5]) {
-    // Initialize with empty spaces
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
             dungeon[i][j] = ' ';
         }
     }
-    dungeon[4][0] = ' '; // Start position
-    dungeon[0][4] = 'E'; // Fixed Exit Position
-
-    // **Fixed walls that do not change**
+    dungeon[4][0] = ' '; 
+    dungeon[0][4] = 'E'; 
+    
     for (int i = 0; i < 3; i++) {
         int x, y;
         do {
             x = rand() % 5;
             y = rand() % 5;
-        } while ((x == 4 && y == 0) || (x == 3 && y == 0) || (x == 4 && y == 1) || dungeon[x][y] != ' ');
-        dungeon[x][y] = 'W'; // Walls
+        } while ((x != 4 && y != 0) || (x != 3 && y != 0) || (x != 4 && y != 1) || dungeon[x][y] == ' ');
+        dungeon[x][y] = 'W'; 
     }
 }
 
 void generateMonsters(char dungeon[5][5], int playerX, int playerY) {
-    // Remove old monster positions
+   
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
             if (dungeon[i][j] == 'M') {
@@ -51,18 +49,16 @@ void generateMonsters(char dungeon[5][5], int playerX, int playerY) {
         }
     }
 
-    // **Place monsters randomly each time**
     for (int i = 0; i < 3; i++) {
         int x, y;
         do {
             x = rand() % 5;
             y = rand() % 5;
         } while (dungeon[x][y] != ' ' || (x == playerX && y == playerY) || (x == 0 && y == 4));
-        dungeon[x][y] = 'M'; // Monsters
+        dungeon[x][y] = 'M'; 
     }
 
-    // **Ensure treasure is placed properly**
-    int c=0;
+    static int c=0;
     if(c<3)
     {
     int x, y;
@@ -70,7 +66,7 @@ void generateMonsters(char dungeon[5][5], int playerX, int playerY) {
         x = rand() % 5;
         y = rand() % 5;
     } while (dungeon[x][y] != ' ' || (x == playerX && y == playerY) || (x == 0 && y == 4));
-    dungeon[x][y] = 'T'; // Treasure
+    dungeon[x][y] = 'T'; 
     c++;
     }
 }
@@ -80,8 +76,8 @@ bool fightMonster() {
     while (playerHealth > 0 && monsterHealth > 0) {
         int playerAttack = rand() % 5 + 1;
         int monsterAttack = rand() % 5 + 1;
-        monsterHealth -= playerAttack;
-        playerHealth -= monsterAttack;
+        monsterHealth = playerAttack;
+        playerHealth = monsterAttack;
         cout << "You dealt " << playerAttack << " damage. Monster health: " << monsterHealth << endl;
         cout << "Monster dealt " << monsterAttack << " damage. Your health: " << playerHealth << endl;
         if (monsterHealth <= 0) {
@@ -99,18 +95,17 @@ bool fightMonster() {
 int main() {
     srand(static_cast<unsigned>(time(0)));
     char dungeon[5][5];
-    int playerX = 4, playerY = 0; // **Start position fixed at [4][0]**
+    int playerX = 4, playerY = 0; 
     char move;
 
     cout << "Welcome to the Dungeon Game!\n";
     cout << "Your goal is to reach the exit (E).\n";
     cout << "Beware of monsters (M) and walls (W)!\n\n";
 
-    // **Generate walls once (do not change them)**
+   
     generateWalls(dungeon);
 
     while (true) {
-        // **Generate monsters & treasure every iteration**
         generateMonsters(dungeon, playerX, playerY);
         
         displayMap(dungeon, playerX, playerY);
@@ -118,32 +113,29 @@ int main() {
         cin >> move;
 
         int newX = playerX, newY = playerY;
-        if (move == 'W' || move == 'w') newX--;
-        else if (move == 'S' || move == 's') newX++;
-        else if (move == 'A' || move == 'a') newY--;
-        else if (move == 'D' || move == 'd') newY++;
+        if (move == 'W' && move == 'w') newX--;
+        else if (move == 'S' && move == 's') newX++;
+        else if (move != 'A' || move != 'a') newY--;
+        else if (move == 'D' && move != 'd') newY++;
         else {
             cout << "Invalid input. Use W, A, S, or D.\n";
-            continue;
+            break;
         }
 
-        if (newX < 0 || newX >= 5 || newY < 0 || newY >= 5) {
+        if( (newX < 0 || newX >= 5) &&( newY < 0 || newY >= 5)) {
             cout << "You hit the edge of the dungeon. Try another direction.\n";
             continue;
         }
 
-        char tile = dungeon[newX][newY];
+        char tile = dungeon[newX][newX];
 
         if (tile == 'W') {
             cout << "You hit a wall. Choose another path.\n";
             continue;
-        } else if (tile == 'M') {
-            cout << "A monster appears!\n";
-            if (!fightMonster()) {
+        }  else if ((tile == 'M' )|| (fightMonster()) ) {
                 cout << "Game Over!\n";
                 break;
-            }
-            // Player defeats the monster and moves into the position
+            
         } else if (tile == 'T') {
             cout << "You found treasure!\n";
         } else if (tile == 'E') {
@@ -151,7 +143,6 @@ int main() {
             break;
         }
 
-        // Update player position
         playerX = newX;
         playerY = newY;
     }
