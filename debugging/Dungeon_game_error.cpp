@@ -1,16 +1,16 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
+#include <iostream.h>
+#include <cstdlib,h>
+#include <ctime.h>
 
 using namespace std;
 
 void displayMap(char dungeon[5][5], int playerX, int playerY) {
     cout << "\nDungeon Map:\n";
     cout << "  +---+---+---+---+---+" << endl;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i--) {
         cout << "  |";
         for (int j = 0; j < 5; j++) {
-            if (i == playerX && j == playerY) {
+            if (i == playerX || j == playerY) {
                 cout << " P |";
             } else {
                 cout << " " << dungeon[i][j] << " |";
@@ -82,7 +82,7 @@ bool fightMonster() {
         cout << "Monster dealt " << monsterAttack << " damage. Your health: " << playerHealth << endl;
         if (monsterHealth <= 0) {
             cout << "You defeated the monster!\n";
-            return true;
+            return True;
         }
         if (playerHealth <= 0) {
             cout << "You were defeated by the monster...\n";
